@@ -2,7 +2,8 @@
 <html lang="es-UY">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- ESTA LÍNEA ARREGLA EL ZOOM EN CELULAR (es la clave) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Sushi Time • Montevideo</title>
   <meta name="description" content="El mejor sushi japonés de Montevideo. Pocitos • Carrasco • Lagomar. Pedí online ahora.">
   
@@ -30,7 +31,7 @@
     nav ul{display:flex;gap:40px;list-style:none;}
     nav a{color:var(--text);text-decoration:none;font-weight:500;font-size:14px;text-transform:uppercase;letter-spacing:1.8px;transition:.3s;}
     nav a:hover{color:var(--red);}
-    .hamburger{display:none;cursor:pointer;z-index:1001;}
+    .hamburger{display:none;cursor: pointer;z-index:1001;}
     .hamburger div{width:28px;height:3px;background:white;margin:6px;transition:.4s;}
     .nav-mobile{
       position:fixed;top:0;left:0;width:100%;height:100vh;background:var(--bg);
@@ -87,65 +88,37 @@
       border-radius:50px;font-weight:600;font-size:1.1rem;cursor:pointer;
       transition:all .4s;
     }
-    .location-tab.active, .location-tab:hover{
+    .location-tab.active,.location-tab:hover{
       background:var(--red);color:white;border-color:var(--red);
     }
 
     footer{background:#000;padding:100px 20px;text-align:center;color:#666;font-size:0.9rem;}
     footer a{color:var(--red);text-decoration:none;}
 
-    /* WhatsApp flotante con texto bonito arriba - 100% estilo WhatsApp verde */
-    .whatsapp-fixed {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
+    /* WhatsApp flotante con texto verde oficial */
+    .whatsapp-fixed{
+      position:fixed;bottom:20px;right:20px;z-index:999;
+      display:flex;flex-direction:column;align-items:center;gap:10px;
     }
-    .whatsapp-text {
-      background: var(--wa-green);
-      color: white;
-      font-weight: 700;
-      font-size: 14px;
-      padding: 10px 20px;
-      border-radius: 30px;
-      box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
-      animation: floatText 3s ease-in-out infinite;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      white-space: nowrap;
+    .whatsapp-text{
+      background:var(--wa-green);color:white;font-weight:700;
+      font-size:14px;padding:10px 20px;border-radius:30px;
+      box-shadow:0 6px 20px rgba(37,211,102,0.4);
+      animation:floatText 3s ease-in-out infinite;
+      text-transform:uppercase;letter-spacing:1px;white-space:nowrap;
     }
-    .whatsapp-btn {
-      background: var(--wa-green);
-      width: 66px;
-      height: 66px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
-      animation: pulse 2s infinite;
-      transition: all 0.3s ease;
+    .whatsapp-btn{
+      background:var(--wa-green);width:66px;height:66px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 8px 30px rgba(37,211,102,0.5);
+      animation:pulse 2s infinite;transition:all .3s;
     }
-    .whatsapp-btn:hover {
-      transform: scale(1.15);
-      box-shadow: 0 12px 40px rgba(37, 211, 102, 0.7);
-    }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
-      70% { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-    }
-    @keyframes floatText {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
-    }
+    .whatsapp-btn:hover{transform:scale(1.15);box-shadow:0 12px 40px rgba(37,211,102,0.7);}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,0.6);}70%{box-shadow:0 0 0 16px rgba(37,211,102,0);}100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}}
+    @keyframes floatText{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 
-    /* RESPONSIVE */
-    @media (max-width: 900px){
+    /* RESPONSIVE - Celular perfecto */
+    @media (max-width:900px){
       .social-map{grid-template-columns:1fr !important;}
       .social-map > .instagram{order:2;}
       .social-map > .mapa{order:1;}
@@ -154,8 +127,14 @@
       .whatsapp-btn{width:74px;height:74px;}
       .whatsapp-btn svg{width:44px;height:44px;}
       .whatsapp-text{font-size:15px;padding:12px 22px;}
+      .hero h1{font-size:19vw;}
+      .hero p{font-size:1.6rem;}
+      .menu-preview h2,.sucursales h2{font-size:4.5rem !important;}
+      .card{padding:45px 25px;}
+      .card h3{font-size:2.8rem;}
+      .location-tab{padding:16px 36px;font-size:1.3rem;}
     }
-    @media (max-width: 480px){
+    @media (max-width:480px){
       .whatsapp-btn{width:70px;height:70px;}
       .whatsapp-text{font-size:14px;padding:10px 18px;}
     }
@@ -265,7 +244,7 @@
     </div>
   </section>
 
-  <!-- WhatsApp flotante con texto bonito arriba - VERDE WHATSAPP OFICIAL -->
+  <!-- WhatsApp flotante verde con texto arriba -->
   <div class="whatsapp-fixed">
     <div class="whatsapp-text">WhatsApp Pedidos</div>
     <a href="https://wa.me/59897123456?text=%C2%A1Hola!%20Quiero%20hacer%20un%20pedido" target="_blank" class="whatsapp-btn">
