@@ -73,9 +73,14 @@
     .card:hover{background:rgba(255,255,255,0.08);border-color:var(--gold);transform:translateY(-20px);}
     .card h3{font-size:3rem;color:var(--gold);margin-bottom:20px;}
 
+    /* Escritorio: lado a lado | Celular: mapa arriba, Instagram abajo */
     .social-map{
-      display:grid;grid-template-columns:1fr 1fr;gap:60px;
-      padding:120px 5%;background:var(--cream);color:#111;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:60px;
+      padding:120px 5%;
+      background:var(--cream);
+      color:#111;
     }
     .instagram h3,.mapa h3{font-size:3rem;margin-bottom:30px;color:var(--red);}
 
@@ -94,114 +99,54 @@
     footer{background:#000;padding:100px 20px;text-align:center;color:#666;font-size:0.9rem;}
     footer a{color:var(--red);text-decoration:none;}
 
-    /* WhatsApp flotante - Verde oficial + más grande en móvil */
-    .whatsapp-fixed {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 999;
+    /* WhatsApp flotante - Verde oficial */
+    .whatsapp-fixed{position:fixed;bottom:20px;right:20px;z-index:999;}
+    .whatsapp-btn{
+      background:#25d366;width:64px;height:64px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 8px 30px rgba(37,211,102,0.5);animation:pulse 2s infinite;
+      transition:all .3s;position:relative;
     }
-    .whatsapp-btn {
-      background: #25d366;
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 8px 30px rgba(37, 211, 102, 0.5);
-      animation: pulse 2s infinite;
-      transition: all 0.3s ease;
-      position: relative;
+    .whatsapp-btn:hover{transform:scale(1.15);box-shadow:0 12px 40px rgba(37,211,102,0.7);}
+    .whatsapp-tooltip{
+      position:absolute;right:78px;top:50%;transform:translateY(-50%);
+      background:#111;color:white;padding:10px 16px;border-radius:30px;
+      font-size:14px;font-weight:600;white-space:nowrap;
+      opacity:0;visibility:hidden;transition:all .3s;
     }
-    .whatsapp-btn:hover {
-      transform: scale(1.15);
-      box-shadow: 0 12px 40px rgba(37, 211, 102, 0.7);
-    }
-    .whatsapp-tooltip {
-      position: absolute;
-      right: 78px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: #111;
-      color: white;
-      padding: 10px 16px;
-      border-radius: 30px;
-      font-size: 14px;
-      font-weight: 600;
-      white-space: nowrap;
-      opacity: 0;
-      visibility: hidden;
-      transition: all 0.3s ease;
-    }
-    .whatsapp-btn:hover .whatsapp-tooltip {
-      opacity: 1;
-      visibility: visible;
-      right: 84px;
-    }
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6); }
-      70% { box-shadow: 0 0 0 14px rgba(37, 211, 102, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
-    }
+    .whatsapp-btn:hover .whatsapp-tooltip{opacity:1;visibility:visible;right:84px;}
+    @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,0.6);}70%{box-shadow:0 0 0 14px rgba(37,211,102,0);}100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}}
 
-    /* ===================== OPTIMIZACIONES SOLO PARA CELULAR ===================== */
-    @media (max-width: 768px) {
-      /* Botones de pedido más grandes y fáciles de tocar */
-      .order-row {
-        flex-direction: column;
-        align-items: center;
-        gap: 18px;
-        padding: 0 20px;
+    /* RESPONSIVE: en celular el mapa va arriba y ocupa todo el ancho */
+    @media (max-width: 900px){
+      .social-map{
+        grid-template-columns:1fr !important; /* una sola columna */
+        gap:80px;
       }
-      .btn {
-        width: 90%;
-        max-width: 380px;
-        padding: 22px 40px !important;
-        font-size: 1.4rem !important;
-        border-radius: 70px;
-      }
-
-      /* WhatsApp más grande y fácil de tocar */
-      .whatsapp-btn {
-        width: 72px;
-        height: 72px;
-      }
-      .whatsapp-btn svg {
-        width: 42px;
-        height: 42px;
-      }
-
-      /* Títulos más grandes y centrados */
-      .hero h1 {font-size: 19vw;}
-      .hero p {font-size: 1.6rem;}
-      .menu-preview h2, .sucursales h2 {font-size: 4.5rem !important;}
+      /* Mapa primero, Instagram después */
+      .social-map > .instagram{order:2;}
+      .social-map > .mapa{order:1;}
       
-      /* Cards de sucursales más fáciles de leer */
-      .card {
-        padding: 45px 25px;
-      }
-      .card h3 {font-size: 2.8rem;}
-      .card p {font-size: 1.1rem; line-height: 1.6;}
-
-      /* Mapa tabs más grandes */
-      .location-tab {
-        padding: 16px 36px;
-        font-size: 1.3rem;
-      }
-
-      /* Instagram feed más alto en móvil */
-      .sk-instagram-feed {
-        min-height: 500px;
-      }
+      .order-row{flex-direction:column;align-items:center;gap:18px;padding:0 20px;}
+      .btn{width:90%;max-width:380px;padding:22px 40px !important;font-size:1.4rem !important;border-radius:70px;}
+      .whatsapp-btn{width:72px;height:72px;}
+      .whatsapp-btn svg{width:42px;height:42px;}
+      .hero h1{font-size:19vw;}
+      .hero p{font-size:1.6rem;}
+      .menu-preview h2, .sucursales h2{font-size:4.5rem !important;}
+      .card{padding:45px 25px;}
+      .card h3{font-size:2.8rem;}
+      .card p{font-size:1.1rem;line-height:1.6;}
+      .location-tab{padding:16px 36px;font-size:1.3rem;}
+      .sk-instagram-feed{min-height:500px;}
     }
 
-    @media (max-width: 480px) {
-      .hero h1 {font-size: 21vw;}
-      .menu-preview h2, .sucursales h2 {font-size: 4rem !important;}
-      .instagram h3, .mapa h3 {font-size: 2.6rem;}
-      .location-tab {padding: 14px 28px; font-size: 1.2rem;}
-      .whatsapp-btn {width: 68px; height: 68px;}
+    @media (max-width: 480px){
+      .hero h1{font-size:21vw;}
+      .menu-preview h2, .sucursales h2{font-size:4rem !important;}
+      .instagram h3, .mapa h3{font-size:2.6rem;}
+      .location-tab{padding:14px 28px;font-size:1.2rem;}
+      .whatsapp-btn{width:68px;height:68px;}
     }
   </style>
 </head>
@@ -234,7 +179,7 @@
 
   <section class="hero" id="inicio">
     <h1>SUSHI TIME</h1>
-    <p>Montevideo</p>
+    <p>Uruguay</p>
     <div class="order-row">
       <a href="https://www.surbit.uy/DelysoftApp/SushiTime" target="_blank" class="btn">PEDIR POCITOS</a>
       <a href="https://www.surbit.uy/DelysoftApp/SushiTimeCarrasco" target="_blank" class="btn">PEDIR CARRASCO</a>
@@ -287,6 +232,7 @@
     </div>
   </section>
 
+  <!-- Instagram + Mapa (en móvil: mapa arriba, Instagram abajo) -->
   <section class="social-map">
     <div class="instagram" data-aos="fade-up">
       <h3>Síguenos @sushitimeuy</h3>
@@ -302,18 +248,18 @@
         <button class="location-tab" onclick="cambiarMapa('lagomar')">Lagomar</button>
       </div>
       <iframe id="mapaIframe" 
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3279.879365288849!2d-56.14967282474992!3d-34.90424877289362!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f81a8f8b8b8b9%3A0x9c8b8e8f8b8b8b8c!2sRoque+Graseras+885%2C+11300+Montevideo%2C+Uruguay!5e0!3m2!1ses!2suy!4v1700000000000" 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3279.879365288849!2d-56.14967282474992!3d-34.90424877289362!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x959f81a8f8b8b8b9%3A0x9c8b8e8f8b8b8b8c!2sRoque+Graseras+885%2C+11300+Montevideo%2C+Uruguay!5e0!3m2!1ses!2suy" 
         width="100%" height="450" style="border:0;border-radius:16px;margin-top:20px;" 
         allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
       </iframe>
     </div>
   </section>
 
-  <!-- WhatsApp flotante - Verde oficial -->
+  <!-- WhatsApp flotante -->
   <div class="whatsapp-fixed">
     <a href="https://wa.me/59897123456?text=%C2%A1Hola!%20Quiero%20hacer%20un%20pedido" target="_blank" class="whatsapp-btn">
       <svg viewBox="0 0 32 32" width="38" height="38" fill="white">
-        <path d="M16.0006 0.00366211C7.1306 -0.0733376 0.0375977 6.90266 0.00359774 15.7907C-0.0164023 19.1007 0.910598 22.3007 2.5806 24.8987L0.156598 31.7187L7.0406 29.3437C9.5696 30.8427 12.6706 31.7217 15.9636 31.7217C24.8796 31.7217 32.0006 24.6027 32.0006 15.6867C32.0006 10.4927 29.6886 5.84466 25.7356 3.05866C21.7826 0.27266 17.1336 -0.0583376 12.0006 0.00366211H16.0006ZM25.8796 22.8187C25.4676 24.0747 23.9356 25.1077 22.5616 25.4507C21.5646 25.6867 20.2266 25.8077 16.4256 24.4077C11.7976 22.7507 8.7676 18.4907 8.5246 18.1357C8.2876 17.7807 6.6006 15.4127 6.6006 12.9637C6.6006 10.5147 7.7936 9.36366 8.2836 8.86666C8.6966 8.45266 9.3046 8.30066 9.8896 8.30066C10.0586 8.30066 10.2126 8.30866 10.3596 8.31566C10.8716 8.33966 11.1456 8.37066 11.4746 9.07066C11.8686 9.88566 12.8626 12.3227 12.9546 12.5497C13.0476 12.7767 13.0476 13.0537 12.9316 13.2807C12.8196 13.5077 12.7236 13.6217 12.5356 13.8487C12.3476 14.0757 12.1846 14.5297C11.9736 14.7567 11.7626 14.9837 11.5516 15.2857C11.3176 15.5877 11.0076 15.9287 11.3176 16.4407C11.6276 16.9527 12.5576 18.3567 13.9546 19.6147C15.7236 21.1887 17.2326 21.7977 17.9776 22.0997C19.0586 22.5507 19.3536 22.4757 19.6636 22.3247C19.9736 22.1737 20.7956 21.6617 21.1176 21.1787C21.4396 20.6957 21.7616 20.7737 22.0956 20.8897C22.4296 21.0057 24.5496 21.9407 24.8596 22.1937C25.1696 22.4467 25.3746 22.5657 25.4676 22.7417C25.5606 22.9177 25.5606 23.0937 25.5606 23.2697C25.4676 23.4457 25.8796 22.8187 25.8796 22.8187Z"/>
+        <path d="M16.0006 0.00366211C7.1306 -0.0733376 0.0375977 6.90266 0.00359774 15.7907C-0.0164023 19.1007 0.910598 22.3007 2.5806 24.8987L0.156598 31.7187L7.0406 29.3437C9.5696 30.8427 12.6706 31.7217 15.9636 31.7217C24.8796 31.7217 32.0006 24.6027 32.0006 15.6867C32.0006 10.4927 29.6886 5.84466 25.7356 3.05866C21.7826 0.27266 17.1336 -0.0583376 12.0006 0.00366211H16.0006ZM25.8796 22.818 való7C25.4676 24.0747 23.9356 25.1077 22.5616 25.4507C21.5646 25.6867 20.2266 25.8077 16.4256 24.4077C11.7976 22.7507 8.7676 18.4907 8.5246 18.1357C8.2876 17.7807 6.6006 15.4127 6.6006 12.9637C6.6006 10.5147 7.7936 9.36366 8.2836 8.86666C8.6966 8.45266 9.3046 8.30066 9.8896 8.30066C10.0586 8.30066 10.2126 8.30866 10.3596 8.31566C10.8716 8.33966 11.1456 8.37066 11.4746 9.07066C11.8686 9.88566 12.8626 12.3227 12.9546 12.5497C13.0476 12.7767 13.0476 13.0537 12.9316 13.2807C12.8196 13.5077 12.7236 13.6217 12.5356 13.8487C12.3476 14.0757 12.1846 14.5297C11.9736 14.7567 11.7626 14.9837 11.5516 15.2857C11.3176 15.5877 11.0076 15.9287 11.3176 16.4407C11.6276 16.9527 12.5576 18.3567 13.9546 19.6147C15.7236 21.1887 17.2326 21.7977 17.9776 22.0997C19.0586 22.5507 19.3536 22.4757 19.6636 22.3247C19.9736 22.1737 20.7956 21.6617 21.1176 21.1787C21.4396 20.6957 21.7616 20.7737 22.0956 20.8897C22.4296 21.0057 24.5496 21.9407 24.8596 22.1937C25.1696 22.4467 25.3746 22.5657 25.4676 22.7417C25.5606 22.9177 25.5606 23.0937 25.5606 23.2697C25.4676 23.4457 25.8796 22.8187 25.8796 22.8187Z"/>
       </svg>
       <span class="whatsapp-tooltip">¡Hablá con nosotros!</span>
     </a>
