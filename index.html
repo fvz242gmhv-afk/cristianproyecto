@@ -39,7 +39,6 @@
             height: calc(100% - 60px);
             max-width: 1600px;
             margin: 0 auto;
-            position: relative; /* Para el footer */
         }
         .stream, .chat-section {
             padding: 20px;
@@ -126,20 +125,6 @@
             100% { transform: scale(1); }
         }
 
-        /* Footer con el disclaimer */
-        .footer-disclaimer {
-            position: fixed;
-            bottom: 10px;
-            left: 10px;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 8px 15px;
-            border-radius: 5px;
-            font-size: 14px;
-            color: #ccc;
-            z-index: 1000;
-            border: 1px solid #333;
-        }
-
         @media (max-width: 900px) {
             .container {
                 flex-direction: column;
@@ -158,10 +143,6 @@
             }
             .frase-llamativa {
                 font-size: 28px;
-            }
-            .footer-disclaimer {
-                font-size: 12px;
-                padding: 6px 10px;
             }
         }
     </style>
@@ -207,11 +188,6 @@
                 <button class="controls-btn" onclick="resetChat()">Reset</button>
             </div>
         </div>
-    </div>
-
-    <!-- Disclaimer en la parte inferior izquierda -->
-    <div class="footer-disclaimer">
-        Esta página está hecha sin fines de lucros, todos los streams no son de nuestra propiedad.
     </div>
 
     <script>
