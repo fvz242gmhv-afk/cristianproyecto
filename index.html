@@ -1,113 +1,51 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>F1Ya · Apple Style</title>
-
-  <style>
-    :root {
-      --bg:#0a0a0a;
-      --panel:#111111;
-      --panel-soft:#161616;
-      --text:#f5f5f7;
-      --muted:#9b9b9f;
-      --accent:#ff2d2d;
-      --border:#1f1f1f;
-      --radius:18px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      background:linear-gradient(180deg,#000 0%,var(--bg) 100%);
-      color:var(--text);
-      font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
-    }
-    header{
-      position:sticky;top:0;z-index:50;
-      background:rgba(10,10,10,.7);
-      backdrop-filter:blur(20px);
-      border-bottom:1px solid var(--border);
-    }
-    .header-inner{
-      max-width:1600px;margin:0 auto;
-      padding:14px 20px;
-      display:flex;align-items:center;gap:20px;
-    }
-    .logo{font-size:20px;font-weight:600}
-    .logo span{color:var(--accent)}
-    .tabs{margin-left:auto;display:flex;gap:10px}
-    .tab{
-      padding:8px 18px;border-radius:999px;
-      border:1px solid var(--border);
-      background:transparent;color:var(--muted);
-      cursor:pointer;
-    }
-    .tab.active{background:var(--accent);color:#fff;border-color:transparent}
-    main{
-      max-width:1600px;margin:0 auto;
-      padding:28px 20px 40px;
-      display:grid;grid-template-columns:1fr 400px;gap:28px;
-    }
-    .player-card,.chat-card{
-      background:var(--panel);
-      border-radius:var(--radius);
-      overflow:hidden;
-      box-shadow:0 30px 80px rgba(0,0,0,.5);
-    }
-    .player-top,.chat-top{
-      padding:14px 18px;
-      border-bottom:1px solid var(--border);
-      font-size:14px;
-    }
-    .player-wrap{aspect-ratio:16/9;background:#000}
-    iframe{width:100%;height:100%;border:0}
-    .chat-card{display:flex;flex-direction:column}
-    .chat-messages{
-      flex:1;padding:12px;overflow-y:auto;
-      font-size:13px;overflow-wrap:anywhere;
-    }
-    .msg{margin-bottom:8px}
-    .chat-input{
-      display:flex;gap:8px;padding:10px;
-      border-top:1px solid var(--border);
-      align-items:center;
-    }
-    .chat-input input{
-      background:var(--panel-soft);
-      border:1px solid var(--border);
-      border-radius:999px;
-      padding:8px 12px;
-      color:var(--text);
-      font-size:13px;
-      outline:none;flex:1;
-    }
-    #nick{width:90px;opacity:.7;cursor:not-allowed}
-    .chat-input button{
-      padding:8px 14px;border-radius:999px;
-      border:none;background:var(--accent);
-      color:#fff;cursor:pointer;
-    }
-    .auth-buttons{
-      display:flex;gap:8px;padding:10px;
-      border-top:1px solid var(--border);
-      flex-wrap:wrap;
-    }
-    .auth-buttons button, .auth-buttons input[type=color]{
-      flex:1;background:transparent;
-      border:1px solid var(--border);
-      color:var(--muted);
-      border-radius:999px;padding:6px;
-      cursor:pointer;
-    }
-    .auth-buttons input[type=color]{
-      padding:0; border:none; height:32px;
-    }
-    @media(max-width:1100px){main{grid-template-columns:1fr}}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>F1Ya · Apple Style</title>
+<style>
+  :root {
+    --bg:#0a0a0a;
+    --panel:#111111;
+    --panel-soft:#161616;
+    --text:#f5f5f7;
+    --muted:#9b9b9f;
+    --accent:#ff2d2d;
+    --border:#1f1f1f;
+    --radius:18px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:linear-gradient(180deg,#000 0%,var(--bg) 100%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;}
+  header{position:sticky;top:0;z-index:50;background:rgba(10,10,10,.7);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+  .header-inner{max-width:1600px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:20px;}
+  .logo{font-size:20px;font-weight:600}.logo span{color:var(--accent)}
+  .tabs{margin-left:auto;display:flex;gap:10px}
+  .tab{padding:8px 18px;border-radius:999px;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;}
+  .tab.active{background:var(--accent);color:#fff;border-color:transparent}
+  main{max-width:1600px;margin:0 auto;padding:28px 20px 40px;display:grid;grid-template-columns:1fr 400px;gap:28px;}
+  .player-card,.chat-card{background:var(--panel);border-radius:var(--radius);overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5);}
+  .player-top,.chat-top{padding:14px 18px;border-bottom:1px solid var(--border);font-size:14px;}
+  .player-wrap{aspect-ratio:16/9;background:#000}iframe{width:100%;height:100%;border:0}
+  .chat-card{display:flex;flex-direction:column}
+  .chat-messages{flex:1;padding:12px;overflow-y:auto;font-size:13px;overflow-wrap:anywhere;max-height:500px;}
+  .msg{margin-bottom:8px}
+  .chat-input{display:flex;gap:8px;padding:10px;border-top:1px solid var(--border);align-items:center;}
+  .chat-input input{background:var(--panel-soft);border:1px solid var(--border);border-radius:999px;padding:8px 12px;color:var(--text);font-size:13px;outline:none;flex:1;}
+  #nick{width:90px;opacity:.7;cursor:not-allowed}
+  .chat-input button{padding:8px 14px;border-radius:999px;border:none;background:var(--accent);color:#fff;cursor:pointer;}
+  .auth-buttons{display:flex;gap:8px;padding:10px;border-top:1px solid var(--border);}
+  .auth-buttons button{flex:1;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:999px;padding:6px;cursor:pointer;}
+  @media(max-width:1100px){main{grid-template-columns:1fr}}
+  .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:100;}
+  .modal-content{background:var(--panel);padding:20px;border-radius:var(--radius);width:300px;display:flex;flex-direction:column;gap:12px;}
+  .modal-content input{padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--panel-soft);color:var(--text);outline:none;}
+  .modal-content button{padding:8px;border:none;border-radius:999px;background:var(--accent);color:#fff;cursor:pointer;}
+  #colorModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:101;}
+  #colorModalContent{background:var(--panel);padding:20px;border-radius:var(--radius);display:flex;flex-direction:column;gap:12px;}
+  .color-btn{width:30px;height:30px;border:none;border-radius:50%;cursor:pointer;}
+</style>
 </head>
-
 <body>
 
 <header>
@@ -140,159 +78,163 @@
     </div>
 
     <div class="auth-buttons">
-      <button id="btn-register" onclick="register()">Registrarse</button>
-      <button id="btn-login" onclick="login()">Login</button>
-      <button id="btn-logout" onclick="logout()" style="display:none">Logout</button>
-      <button id="btn-edit-color" onclick="showColorPicker()" style="display:none">Editar</button>
-      <input type="color" id="color-picker" style="display:none">
+      <button id="btnRegister" onclick="openModal('register')">Registrarse</button>
+      <button id="btnLogin" onclick="openModal('login')">Login</button>
+      <button id="btnLogout" onclick="logout()" style="display:none">Logout</button>
+      <button id="btnEditColor" onclick="openColorModal()" style="display:none">Editar color</button>
     </div>
   </aside>
 </main>
 
+<!-- MODAL LOGIN/REGISTER -->
+<div class="modal" id="loginModal">
+  <div class="modal-content">
+    <h3 id="modalTitle">Login</h3>
+    <input type="text" id="modalNick" placeholder="Nick">
+    <input type="password" id="modalPass" placeholder="Contraseña">
+    <button id="modalSubmit">Enviar</button>
+    <button onclick="closeModal()">Cerrar</button>
+  </div>
+</div>
+
+<!-- MODAL COLOR -->
+<div id="colorModal">
+  <div id="colorModalContent">
+    <h3>Selecciona un color</h3>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="color-btn" style="background:red" onclick="changeNickColor('red')"></button>
+      <button class="color-btn" style="background:green" onclick="changeNickColor('green')"></button>
+      <button class="color-btn" style="background:blue" onclick="changeNickColor('blue')"></button>
+      <button class="color-btn" style="background:orange" onclick="changeNickColor('orange')"></button>
+      <button class="color-btn" style="background:purple" onclick="changeNickColor('purple')"></button>
+      <button class="color-btn" style="background:yellow" onclick="changeNickColor('yellow')"></button>
+      <button class="color-btn" style="background:pink" onclick="changeNickColor('pink')"></button>
+      <button class="color-btn" style="background:cyan" onclick="changeNickColor('cyan')"></button>
+      <button class="color-btn" style="background:magenta" onclick="changeNickColor('magenta')"></button>
+      <button class="color-btn" style="background:lime" onclick="changeNickColor('lime')"></button>
+      <button class="color-btn" style="background:gold" onclick="changeNickColor('gold')"></button>
+      <button class="color-btn" style="background:teal" onclick="changeNickColor('teal')"></button>
+    </div>
+    <button onclick="closeColorModal()">Cerrar</button>
+  </div>
+</div>
+
 <script type="module">
-  /* STREAMS */
-  const streams={
-    daddy:"aHR0cHM6Ly9kYWRkeWhkLmNvbS93YXRjaC9zdHJlYW0tNTM3LnBocA==",
-    espn:"aHR0cHM6Ly9kYWRkeWhkLmNvbS9zdHJlYW0vc3RyZWFtLTE0OS5waHA=",
-    fox:"aHR0cHM6Ly9kYWRkeWhkLmNvbS9zdHJlYW0vc3RyZWFtLTc4Ny5waHA="
-  };
-  const player=document.getElementById('player');
-  window.cambiarStream=t=>{
-    player.src=atob(streams[t]);
-    ['daddy','espn','fox'].forEach(k=>{
-      document.getElementById('btn-'+k).classList.toggle('active',k===t);
-    });
-  };
-  cambiarStream('daddy');
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getDatabase, ref, push, onChildAdded, set, get, query, limitToLast } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-  /* FIREBASE */
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getDatabase, ref, push, onChildAdded, set, get }
-  from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
-  import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    onAuthStateChanged,
-    signOut
-  } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+/* STREAMS */
+const streams={daddy:"aHR0cHM6Ly9kYWRkeWhkLmNvbS93YXRjaC9zdHJlYW0tNTM3LnBocA==",
+espn:"aHR0cHM6Ly9kYWRkeWhkLmNvbS9zdHJlYW0vc3RyZWFtLTE0OS5waHA=",
+fox:"aHR0cHM6Ly9kYWRkeWhkLmNvbS9zdHJlYW0vc3RyZWFtLTc4Ny5waHA="};
+const player=document.getElementById('player');
+window.cambiarStream=t=>{player.src=atob(streams[t]);['daddy','espn','fox'].forEach(k=>{document.getElementById('btn-'+k).classList.toggle('active',k===t);});};
+cambiarStream('daddy');
 
-  const app=initializeApp({
-    apiKey:"AIzaSyDSxZILNH92QqkfnQeSpYZeboqylAo_6S0",
-    authDomain:"sushitime-b84fc.firebaseapp.com",
-    databaseURL:"https://sushitime-b84fc-default-rtdb.firebaseio.com",
-    projectId:"sushitime-b84fc"
-  });
+/* FIREBASE */
+const firebaseConfig={apiKey:"AIzaSyDSxZILNH92QqkfnQeSpYZeboqylAo_6S0",
+authDomain:"sushitime-b84fc.firebaseapp.com",
+databaseURL:"https://sushitime-b84fc-default-rtdb.firebaseio.com",
+projectId:"sushitime-b84fc"};
+const app=initializeApp(firebaseConfig);
+const db=getDatabase(app);
+const auth=getAuth(app);
 
-  const db=getDatabase(app);
-  const auth=getAuth(app);
+/* CHAT */
+const messagesRef=ref(db,'chat/messages');
+const box=document.getElementById('messages');
+const nickInput=document.getElementById('nick');
+const textInput=document.getElementById('text');
+const guestNick='Guest'+Math.random().toString(36).substring(2,6).toUpperCase();
+let currentNick=guestNick;
+let currentColor='white';
+nickInput.value=guestNick;
 
-  signOut(auth);
+/* ON AUTH CHANGE */
+onAuthStateChanged(auth, async user=>{
+  const btnLogin=document.getElementById('btnLogin');
+  const btnRegister=document.getElementById('btnRegister');
+  const btnLogout=document.getElementById('btnLogout');
+  const btnEditColor=document.getElementById('btnEditColor');
+  if(user){
+    const snap=await get(ref(db,'users/'+user.uid));
+    currentNick=snap.val().nick||guestNick;
+    currentColor=snap.val().color||'white';
+    nickInput.value=currentNick;
+    nickInput.style.color=currentColor;
+    btnLogin.style.display='none';
+    btnRegister.style.display='none';
+    btnLogout.style.display='inline-block';
+    btnEditColor.style.display='inline-block';
+  }else{
+    currentNick=guestNick;
+    currentColor='white';
+    nickInput.value=currentNick;
+    nickInput.style.color=currentColor;
+    btnLogin.style.display='inline-block';
+    btnRegister.style.display='inline-block';
+    btnLogout.style.display='none';
+    btnEditColor.style.display='none';
+  }
+});
 
-  const messagesRef=ref(db,'chat/messages');
-  const box=document.getElementById('messages');
-  const nickInput=document.getElementById('nick');
-  const textInput=document.getElementById('text');
+/* Últimos 40 mensajes */
+const messagesQuery=query(messagesRef, limitToLast(40));
+onChildAdded(messagesQuery,snap=>{
+  const m=snap.val();
+  const div=document.createElement('div');
+  div.className='msg';
+  div.innerHTML=`<strong style="color:${m.color||'white'}">${m.nick}</strong>: ${m.text}`;
+  box.appendChild(div);
+  box.scrollTop=box.scrollHeight;
+});
 
-  const btnLogin=document.getElementById('btn-login');
-  const btnRegister=document.getElementById('btn-register');
-  const btnLogout=document.getElementById('btn-logout');
-  const btnEditColor=document.getElementById('btn-edit-color');
-  const colorPicker=document.getElementById('color-picker');
+/* SEND MSG */
+window.sendMsg=()=>{
+  if(!textInput.value.trim())return;
+  push(messagesRef,{nick:currentNick,text:textInput.value,time:Date.now(),color:currentColor});
+  textInput.value='';
+};
+textInput.addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});
 
-  const guestNick='Guest'+Math.random().toString(36).substring(2,6).toUpperCase();
-  let currentNick=guestNick;
-  let currentColor="#ffffff";
-  nickInput.value=guestNick;
+/* MODALS */
+window.openModal=(type)=>{
+  document.getElementById('loginModal').style.display='flex';
+  document.getElementById('modalTitle').innerText=type==='login'?'Login':'Registrarse';
+  document.getElementById('modalSubmit').onclick=type==='login'?login:register;
+}
+window.closeModal=()=>{document.getElementById('loginModal').style.display='none';}
+window.openColorModal=()=>{document.getElementById('colorModal').style.display='flex';}
+window.closeColorModal=()=>{document.getElementById('colorModal').style.display='none';}
 
-  onAuthStateChanged(auth, async user=>{
-    if(user){
-      const snap=await get(ref(db,'users/'+user.uid+'/nick'));
-      currentNick=snap.val();
+/* REGISTER/LOGIN/LOGOUT */
+async function register(){
+  const nick=document.getElementById('modalNick').value;
+  const pass=document.getElementById('modalPass').value;
+  if(!nick||!pass)return alert('Completa todos los campos');
+  const email=`${nick}@chat.f1ya.com`;
+  const {user}=await createUserWithEmailAndPassword(auth,email,pass);
+  await set(ref(db,'users/'+user.uid),{nick,color:'white'});
+  closeModal();
+}
+async function login(){
+  const nick=document.getElementById('modalNick').value;
+  const pass=document.getElementById('modalPass').value;
+  if(!nick||!pass)return alert('Completa todos los campos');
+  const email=`${nick}@chat.f1ya.com`;
+  await signInWithEmailAndPassword(auth,email,pass);
+  closeModal();
+}
+window.logout=()=>signOut(auth);
 
-      const colorSnap = await get(ref(db,'users/'+user.uid+'/color'));
-      currentColor = colorSnap.val() || "#ffffff";
-
-      nickInput.value=currentNick;
-
-      btnLogin.style.display='none';
-      btnRegister.style.display='none';
-      btnLogout.style.display='block';
-      btnEditColor.style.display='block';
-    }else{
-      currentNick=guestNick;
-      currentColor="#ffffff";
-      nickInput.value=guestNick;
-
-      btnLogin.style.display='block';
-      btnRegister.style.display='block';
-      btnLogout.style.display='none';
-      btnEditColor.style.display='none';
-      colorPicker.style.display='none';
-    }
-  });
-
-  onChildAdded(messagesRef,snap=>{
-    const m=snap.val();
-    const badge = m.verified ? ' <span style="color:#2ecc71">✔️</span>' : '';
-    const nickColor = m.color || "#ffffff";
-    const div=document.createElement('div');
-    div.className='msg';
-    div.innerHTML=`<strong style="color:${nickColor}">${m.nick}${badge}</strong>: ${m.text}`;
-    box.appendChild(div);
-    box.scrollTop=box.scrollHeight;
-  });
-
-  window.sendMsg=()=>{
-    if(!textInput.value.trim())return;
-    push(messagesRef,{
-      nick:currentNick,
-      text:textInput.value,
-      verified: !!auth.currentUser,
-      color: currentColor,
-      time:Date.now()
-    });
-    textInput.value='';
-  };
-
-  window.register=async()=>{
-    const nick=prompt('Nick');
-    const pass=prompt('Contraseña (mínimo 6)');
-    if(!nick||!pass)return;
-    const email=`${nick}@chat.f1ya.com`;
-    const { user }=await createUserWithEmailAndPassword(auth,email,pass);
-    await set(ref(db,'users/'+user.uid),{nick,color:"#ffffff"});
-  };
-
-  window.login=async()=>{
-    const nick=prompt('Nick');
-    const pass=prompt('Contraseña');
-    if(!nick||!pass)return;
-    const email=`${nick}@chat.f1ya.com`;
-    await signInWithEmailAndPassword(auth,email,pass);
-  };
-
-  window.logout=async()=>{
-    await signOut(auth);
-  };
-
-  window.showColorPicker=()=>{
-    colorPicker.value=currentColor;
-    colorPicker.click();
-  };
-
-  colorPicker.addEventListener('input', async (e)=>{
-    currentColor=e.target.value;
-    const user = auth.currentUser;
-    if(user){
-      await set(ref(db,'users/'+user.uid+'/color'), currentColor);
-    }
-  });
-
-  // ENTER key para enviar mensaje
-  textInput.addEventListener('keydown', e => {
-    if(e.key === 'Enter') sendMsg();
-  });
+/* EDIT COLOR */
+window.changeNickColor=(color)=>{
+  currentColor=color;
+  nickInput.style.color=color;
+  onAuthStateChanged(auth,async user=>{if(user) await set(ref(db,'users/'+user.uid+'/color'),color);});
+  closeColorModal();
+}
 </script>
 
 </body>
