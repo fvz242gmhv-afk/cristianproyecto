@@ -29,7 +29,7 @@
   .player-wrap{aspect-ratio:16/9;background:#000}iframe{width:100%;height:100%;border:0}
   .chat-card{display:flex;flex-direction:column}
   .chat-messages{flex:1;padding:12px;overflow-y:auto;font-size:13px;overflow-wrap:anywhere;max-height:500px;}
-  .msg{margin-bottom:8px}
+  .msg{margin-bottom:8px;padding:4px;border-radius:8px;}
   .chat-input{display:flex;gap:8px;padding:10px;border-top:1px solid var(--border);align-items:center;}
   .chat-input input{background:var(--panel-soft);border:1px solid var(--border);border-radius:999px;padding:8px 12px;color:var(--text);font-size:13px;outline:none;flex:1;}
   #nick{width:90px;opacity:.7;cursor:not-allowed}
@@ -41,9 +41,10 @@
   .modal-content{background:var(--panel);padding:20px;border-radius:var(--radius);width:300px;display:flex;flex-direction:column;gap:12px;}
   .modal-content input{padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--panel-soft);color:var(--text);outline:none;}
   .modal-content button{padding:8px;border:none;border-radius:999px;background:var(--accent);color:#fff;cursor:pointer;}
-  #colorModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:101;}
-  #colorModalContent{background:var(--panel);padding:20px;border-radius:var(--radius);display:flex;flex-direction:column;gap:12px;}
-  .color-btn{width:30px;height:30px;border:none;border-radius:50%;cursor:pointer;}
+  #colorModal,#bgModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:101;}
+  #colorModalContent,#bgModalContent{background:var(--panel);padding:20px;border-radius:var(--radius);display:flex;flex-direction:column;gap:12px;}
+  .color-input,.bg-input{width:100%;height:40px;border:none;border-radius:8px;cursor:pointer;}
+  .preview-box{padding:6px;border-radius:6px;text-align:center;font-weight:bold;margin-top:6px;}
 </style>
 </head>
 <body>
@@ -81,7 +82,8 @@
       <button id="btnRegister" onclick="openModal('register')">Registrarse</button>
       <button id="btnLogin" onclick="openModal('login')">Login</button>
       <button id="btnLogout" onclick="logout()" style="display:none">Logout</button>
-      <button id="btnEditColor" onclick="openColorModal()" style="display:none">Editar color</button>
+      <button id="btnColorNick" onclick="openColorModal()" style="display:none">Color Nick</button>
+      <button id="btnBgMsg" onclick="openBgModal()" style="display:none">Fondo Mensaje</button>
     </div>
   </aside>
 </main>
@@ -97,25 +99,25 @@
   </div>
 </div>
 
-<!-- MODAL COLOR -->
+<!-- MODAL COLOR NICK -->
 <div id="colorModal">
   <div id="colorModalContent">
-    <h3>Selecciona un color</h3>
-    <div style="display:flex;gap:10px;flex-wrap:wrap">
-      <button class="color-btn" style="background:red" onclick="changeNickColor('red')"></button>
-      <button class="color-btn" style="background:green" onclick="changeNickColor('green')"></button>
-      <button class="color-btn" style="background:blue" onclick="changeNickColor('blue')"></button>
-      <button class="color-btn" style="background:orange" onclick="changeNickColor('orange')"></button>
-      <button class="color-btn" style="background:purple" onclick="changeNickColor('purple')"></button>
-      <button class="color-btn" style="background:yellow" onclick="changeNickColor('yellow')"></button>
-      <button class="color-btn" style="background:pink" onclick="changeNickColor('pink')"></button>
-      <button class="color-btn" style="background:cyan" onclick="changeNickColor('cyan')"></button>
-      <button class="color-btn" style="background:magenta" onclick="changeNickColor('magenta')"></button>
-      <button class="color-btn" style="background:lime" onclick="changeNickColor('lime')"></button>
-      <button class="color-btn" style="background:gold" onclick="changeNickColor('gold')"></button>
-      <button class="color-btn" style="background:teal" onclick="changeNickColor('teal')"></button>
-    </div>
+    <h3>Selecciona un color para tu nick</h3>
+    <input type="color" id="colorPicker" class="color-input" value="#ffffff" onchange="updatePreview()">
+    <div class="preview-box" id="nickPreview">Preview Nick</div>
+    <button onclick="saveNickColor()">Guardar</button>
     <button onclick="closeColorModal()">Cerrar</button>
+  </div>
+</div>
+
+<!-- MODAL FONDO MENSAJE -->
+<div id="bgModal">
+  <div id="bgModalContent">
+    <h3>Selecciona un fondo para tus mensajes</h3>
+    <input type="color" id="bgPicker" class="bg-input" value="#ffffff" onchange="updateBgPreview()">
+    <div class="preview-box" id="bgPreview">Preview Mensaje</div>
+    <button onclick="saveBgColor()">Guardar</button>
+    <button onclick="closeBgModal()">Cerrar</button>
   </div>
 </div>
 
@@ -146,36 +148,45 @@ const messagesRef=ref(db,'chat/messages');
 const box=document.getElementById('messages');
 const nickInput=document.getElementById('nick');
 const textInput=document.getElementById('text');
-const guestNick='Guest'+Math.random().toString(36).substring(2,6).toUpperCase();
+let guestNick='Guest'+Math.random().toString(36).substring(2,6).toUpperCase();
 let currentNick=guestNick;
-let currentColor='white';
+let currentColor='#ffffff';
+let currentBg='transparent';
+let isLoggedIn=false;
 nickInput.value=guestNick;
 
-/* ON AUTH CHANGE */
+/* AUTH CHANGE */
 onAuthStateChanged(auth, async user=>{
   const btnLogin=document.getElementById('btnLogin');
   const btnRegister=document.getElementById('btnRegister');
   const btnLogout=document.getElementById('btnLogout');
-  const btnEditColor=document.getElementById('btnEditColor');
+  const btnColorNick=document.getElementById('btnColorNick');
+  const btnBgMsg=document.getElementById('btnBgMsg');
   if(user){
     const snap=await get(ref(db,'users/'+user.uid));
     currentNick=snap.val().nick||guestNick;
-    currentColor=snap.val().color||'white';
+    currentColor=snap.val().color||'#ffffff';
+    currentBg=snap.val().bg||'transparent';
     nickInput.value=currentNick;
     nickInput.style.color=currentColor;
+    isLoggedIn=true;
     btnLogin.style.display='none';
     btnRegister.style.display='none';
     btnLogout.style.display='inline-block';
-    btnEditColor.style.display='inline-block';
+    btnColorNick.style.display='inline-block';
+    btnBgMsg.style.display='inline-block';
   }else{
     currentNick=guestNick;
-    currentColor='white';
+    currentColor='#ffffff';
+    currentBg='transparent';
     nickInput.value=currentNick;
     nickInput.style.color=currentColor;
+    isLoggedIn=false;
     btnLogin.style.display='inline-block';
     btnRegister.style.display='inline-block';
     btnLogout.style.display='none';
-    btnEditColor.style.display='none';
+    btnColorNick.style.display='none';
+    btnBgMsg.style.display='none';
   }
 });
 
@@ -185,7 +196,9 @@ onChildAdded(messagesQuery,snap=>{
   const m=snap.val();
   const div=document.createElement('div');
   div.className='msg';
-  div.innerHTML=`<strong style="color:${m.color||'white'}">${m.nick}</strong>: ${m.text}`;
+  div.style.background=m.bg||'transparent';
+  const verified=m.uid?' ✅ ':'';
+  div.innerHTML=`<strong style="color:${m.color||'#ffffff'}">${verified}${m.nick}</strong>: ${m.text}`;
   box.appendChild(div);
   box.scrollTop=box.scrollHeight;
 });
@@ -193,7 +206,7 @@ onChildAdded(messagesQuery,snap=>{
 /* SEND MSG */
 window.sendMsg=()=>{
   if(!textInput.value.trim())return;
-  push(messagesRef,{nick:currentNick,text:textInput.value,time:Date.now(),color:currentColor});
+  push(messagesRef,{nick:currentNick,text:textInput.value,time:Date.now(),color:currentColor,bg:currentBg,uid:isLoggedIn?auth.currentUser.uid:null});
   textInput.value='';
 };
 textInput.addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});
@@ -205,8 +218,10 @@ window.openModal=(type)=>{
   document.getElementById('modalSubmit').onclick=type==='login'?login:register;
 }
 window.closeModal=()=>{document.getElementById('loginModal').style.display='none';}
-window.openColorModal=()=>{document.getElementById('colorModal').style.display='flex';}
+window.openColorModal=()=>{document.getElementById('colorModal').style.display='flex';updatePreview();}
 window.closeColorModal=()=>{document.getElementById('colorModal').style.display='none';}
+window.openBgModal=()=>{document.getElementById('bgModal').style.display='flex';updateBgPreview();}
+window.closeBgModal=()=>{document.getElementById('bgModal').style.display='none';}
 
 /* REGISTER/LOGIN/LOGOUT */
 async function register(){
@@ -215,7 +230,7 @@ async function register(){
   if(!nick||!pass)return alert('Completa todos los campos');
   const email=`${nick}@chat.f1ya.com`;
   const {user}=await createUserWithEmailAndPassword(auth,email,pass);
-  await set(ref(db,'users/'+user.uid),{nick,color:'white'});
+  await set(ref(db,'users/'+user.uid),{nick,color:'#ffffff',bg:'transparent'});
   closeModal();
 }
 async function login(){
@@ -228,12 +243,31 @@ async function login(){
 }
 window.logout=()=>signOut(auth);
 
-/* EDIT COLOR */
-window.changeNickColor=(color)=>{
+/* COLOR NICK */
+window.updatePreview=()=>{
+  const val=document.getElementById('colorPicker').value;
+  document.getElementById('nickPreview').style.color=val;
+  document.getElementById('nickPreview').innerText=currentNick;
+}
+window.saveNickColor=()=>{
+  const color=document.getElementById('colorPicker').value;
   currentColor=color;
   nickInput.style.color=color;
-  onAuthStateChanged(auth,async user=>{if(user) await set(ref(db,'users/'+user.uid+'/color'),color);});
+  if(auth.currentUser) set(ref(db,'users/'+auth.currentUser.uid+'/color'),color);
   closeColorModal();
+}
+
+/* FONDO MENSAJE */
+window.updateBgPreview=()=>{
+  const val=document.getElementById('bgPicker').value;
+  document.getElementById('bgPreview').style.backgroundColor=val;
+  document.getElementById('bgPreview').innerText='Preview Mensaje';
+}
+window.saveBgColor=()=>{
+  const bg=document.getElementById('bgPicker').value+'33'; // transparente
+  currentBg=bg;
+  if(auth.currentUser) set(ref(db,'users/'+auth.currentUser.uid+'/bg'),bg);
+  closeBgModal();
 }
 </script>
 
