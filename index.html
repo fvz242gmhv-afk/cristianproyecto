@@ -25,11 +25,31 @@
   .tab.active{background:var(--accent);color:#fff;border-color:transparent}
   main{max-width:1600px;margin:0 auto;padding:28px 20px 40px;display:grid;grid-template-columns:1fr 400px;gap:28px;}
   .player-card,.chat-card{background:var(--panel);border-radius:var(--radius);overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5);}
-  .player-top{padding:14px 18px;border-bottom:1px solid var(--border);font-size:14px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+  
+  /* BARRA SUPERIOR COMPACTA */
+  .player-top {
+    padding: 9px 14px;
+    border-bottom: 1px solid var(--border);
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .player-top strong {
+    font-size: 13.5px;
+  }
+  .top-fans-title strong {
+    font-size: 13px;
+  }
+
   .player-wrap{aspect-ratio:16/9;background:#000}iframe{width:100%;height:100%;border:0}
   .chat-card{display:flex;flex-direction:column}
-  .chat-messages{flex:1;padding:12px;overflow-y:auto;font-size:13px;overflow-wrap:anywhere;max-height:500px;}
-  .msg{margin-bottom:8px;padding:6px 8px;border-radius:8px;display:flex;align-items:center;gap:8px;}
+  .chat-top{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid var(--border);}
+  .chat-top strong{font-size:15px;}
+  .online-count{font-size:13px;color:var(--muted);}
+  .chat-messages{flex:1;padding:12px;overflow-y:auto;font-size:13px;overflow-wrap:anywhere;max-height:500px;position:relative;}
+  .msg{margin-bottom:8px;padding:6px 8px;border-radius:8px;display:flex;align-items:flex-start;gap:8px;position:relative;cursor:pointer;}
   .msg-img{width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0;background:var(--panel-soft);}
   .msg-content{flex:1;}
   .chat-input{display:flex;gap:8px;padding:10px;border-top:1px solid var(--border);align-items:center;}
@@ -57,8 +77,7 @@
   .user-item img{width:20px;height:20px;border-radius:50%;object-fit:cover;}
   .admin-help{margin-top:6px;font-size:12px;color:var(--accent);}
 
-  /* Top Fans - Más espacio para nick + horas */
-  .top-fans-title strong {font-size:14px;white-space:nowrap;}
+  /* Top Fans - Más compacto y con imágenes más pequeñas */
   .top-fans-ticker {
     flex:1;
     overflow:hidden;
@@ -69,7 +88,7 @@
   }
   .top-fans-track {
     display:flex;
-    gap:18px;
+    gap:14px;
     align-items:center;
     padding:0 10px;
   }
@@ -78,8 +97,8 @@
     flex-shrink:0;
   }
   .top-fans-user img {
-    width:40px;
-    height:40px;
+    width:32px;
+    height:32px;
     border-radius:50%;
     object-fit:cover;
     background:var(--panel-soft);
@@ -87,15 +106,151 @@
   }
   .top-fans-user .nick {
     display:block;
-    font-size:10px;
-    margin-top:6px;
+    font-size:9.8px;
+    margin-top:4px;
     color:var(--text);
     white-space:nowrap;
+    max-width:80px;
+    overflow:hidden;
+    text-overflow:ellipsis;
   }
   .top-fans-user .hours {
-    font-size:9px;
+    font-size:8.8px;
     color:var(--muted);
+    margin-top:2px;
+  }
+
+  /* #1 - Oro 👑 */
+  .top-fans-user.top-fans-first {
+    animation: pulseGlowGold 3s infinite ease-in-out;
+  }
+  .top-fans-user.top-fans-first img {
+    width:38px !important;
+    height:38px !important;
+    border: 3px solid #ffd700 !important;
+    box-shadow: 0 0 14px rgba(255, 215, 0, 0.9);
+  }
+  .top-fans-user.top-fans-first .nick {
+    font-size:10.8px !important;
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.9);
+    margin-top:6px !important;
+    position: relative;
+    max-width:90px;
+  }
+  .top-fans-user.top-fans-first .nick::after {
+    content: ' 👑';
+    font-size: 12px;
+  }
+  .top-fans-user.top-fans-first .hours {
+    font-size:9.5px !important;
     margin-top:3px;
+  }
+
+  /* #2 - Plata 🥈 */
+  .top-fans-user.top-fans-second {
+    animation: pulseGlowSilver 4s infinite ease-in-out;
+  }
+  .top-fans-user.top-fans-second img {
+    width:36px !important;
+    height:36px !important;
+    border: 2px solid #c0c0c0 !important;
+    box-shadow: 0 0 9px rgba(192, 192, 192, 0.5);
+  }
+  .top-fans-user.top-fans-second .nick {
+    font-size:10.3px !important;
+    font-weight: bold;
+    text-shadow: 0 0 6px rgba(192, 192, 192, 0.6);
+    margin-top:5px !important;
+    position: relative;
+    max-width:85px;
+  }
+  .top-fans-user.top-fans-second .nick::after {
+    content: ' 🥈';
+    font-size: 11px;
+  }
+  .top-fans-user.top-fans-second .hours {
+    font-size:9px !important;
+    margin-top:3px;
+  }
+
+  @keyframes pulseGlowGold {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.06); }
+    100% { transform: scale(1); }
+  }
+  @keyframes pulseGlowSilver {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+  }
+
+  /* ==== NUEVAS ESTILOS PARA REACCIONES Y REPLIES ==== */
+  .msg-reactions {
+    display: flex;
+    gap: 6px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+  }
+  .reaction-btn {
+    background: var(--panel-soft);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 8px;
+    font-size: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s;
+  }
+  .reaction-btn:hover {
+    background: rgba(255,255,255,0.1);
+    transform: scale(1.05);
+  }
+  .reaction-btn.self {
+    border-color: var(--accent);
+    background: rgba(255,45,45,0.15);
+  }
+
+  .msg-reply {
+    font-size: 11.5px;
+    color: var(--muted);
+    margin-bottom: 4px;
+    padding: 4px 8px;
+    background: var(--panel-soft);
+    border-left: 3px solid var(--accent);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .msg-reply:hover {
+    background: rgba(255,45,45,0.1);
+  }
+
+  .emoji-picker {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 8px;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    z-index: 10;
+  }
+  .emoji-picker button {
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 6px;
+  }
+  .emoji-picker button:hover {
+    background: var(--panel-soft);
   }
 </style>
 </head>
@@ -105,7 +260,7 @@
   <div class="header-inner">
     <div class="logo">F1<span>Ya</span></div>
     <div class="tabs">
-      <button class="tab active" id="btn-daddy" onclick C="cambiarStream('daddy')">DAZN F1</button>
+      <button class="tab active" id="btn-daddy" onclick="cambiarStream('daddy')">DAZN F1</button>
       <button class="tab" id="btn-espn" onclick="cambiarStream('espn')">ESPN</button>
       <button class="tab" id="btn-fox" onclick="cambiarStream('fox')">FOX</button>
     </div>
@@ -116,7 +271,7 @@
   <section class="player-card">
     <div class="player-top">
       <div><strong>Fórmula 1 · Live</strong></div>
-      <div class="top-fans-title"><strong>Top Fans ·</strong></div> <!-- Cambio realizado aquí -->
+      <div class="top-fans-title"><strong>Top Fans ·</strong></div>
       <div class="top-fans-ticker">
         <div class="top-fans-track" id="topFansTrack"></div>
       </div>
@@ -132,7 +287,10 @@
   </section>
 
   <aside class="chat-card">
-    <div class="chat-top"><strong>Chat en vivo</strong></div>
+    <div class="chat-top">
+      <strong>Chat en vivo</strong>
+      <span class="online-count" id="onlineCount">0 online</span>
+    </div>
     <div class="chat-messages" id="messages"></div>
 
     <div class="chat-input">
@@ -237,6 +395,7 @@ const nickInput=document.getElementById('nick');
 const textInput=document.getElementById('text');
 const adminHelp=document.getElementById('adminHelp');
 const topFansTrack = document.getElementById('topFansTrack');
+const onlineCountSpan = document.getElementById('onlineCount');
 
 let guestNick='Guest'+Math.random().toString(36).substring(2,6).toUpperCase();
 let currentNick=guestNick;
@@ -248,7 +407,15 @@ let isAdmin = false;
 let currentEditKey = null;
 nickInput.value=guestNick;
 
-/* Top Fans - Con horas y espacio suficiente */
+/* Contador online */
+function updateOnlineCount(snapshot) {
+  const data = snapshot.val() || {};
+  const onlineUsers = Object.values(data).filter(u => u.online === true);
+  onlineCountSpan.textContent = `${onlineUsers.length} online`;
+}
+onValue(usersRef, updateOnlineCount);
+
+/* Top Fans */
 function renderTopFans(usersData) {
   const users = Object.values(usersData || {}).filter(u => u.totalTime > 0 && u.photoURL && u.nick);
   users.sort((a, b) => (b.totalTime || 0) - (a.totalTime || 0));
@@ -260,10 +427,14 @@ function renderTopFans(usersData) {
   }
 
   let html = '';
-  top10.forEach(u => {
+  top10.forEach((u, index) => {
     const hours = (u.totalTime / 3600).toFixed(1);
+    const isFirst = index === 0;
+    const isSecond = index === 1;
+    const extraClass = isFirst ? ' top-fans-first' : (isSecond ? ' top-fans-second' : '');
+
     html += `
-      <div class="top-fans-user">
+      <div class="top-fans-user${extraClass}">
         <img src="${u.photoURL}" alt="${u.nick}" onerror="this.style.display='none'">
         <span class="nick" style="color:${u.color || '#ffffff'}">${u.nick}</span>
         <span class="hours">${hours} h</span>
@@ -301,7 +472,7 @@ function stopTracking() {
 }
 window.addEventListener('beforeunload', stopTracking);
 
-/* AUTH CHANGE */
+/* AUTH */
 onAuthStateChanged(auth, async user=>{
   stopTracking();
 
@@ -334,6 +505,8 @@ onAuthStateChanged(auth, async user=>{
 
     adminHelp.style.display = isAdmin ? 'block' : 'none';
 
+    await set(ref(db, 'users/'+user.uid+'/online'), true);
+
     startTracking();
   }else{
     currentNick=guestNick;
@@ -354,7 +527,125 @@ onAuthStateChanged(auth, async user=>{
   }
 });
 
-/* LISTENERS DE MENSAJES */
+/* ==== REACCIONES Y REPLIES ==== */
+const AVAILABLE_EMOJIS = ['👍', '😂', '❤️', '🔥', '🚀', '👑', '💯', '🎉', '🤡', '🫡'];
+
+let replyToKey = null;
+let replyToNick = null;
+let replyToText = null;
+
+function renderReactions(msgElement, reactions = {}) {
+  const existing = msgElement.querySelector('.msg-reactions');
+  if (Object.keys(reactions).length === 0) {
+    if (existing) existing.remove();
+    return;
+  }
+
+  let html = '<div class="msg-reactions">';
+  Object.keys(reactions).forEach(emoji => {
+    const count = reactions[emoji].count || 0;
+    const users = reactions[emoji].users || {};
+    const hasMe = auth.currentUser && users[auth.currentUser.uid];
+    html += `
+      <div class="reaction-btn ${hasMe ? 'self' : ''}" onclick="toggleReaction('${msgElement.dataset.key}','${emoji}')">
+        <span>${emoji}</span>
+        <span>${count}</span>
+      </div>`;
+  });
+  html += '</div>';
+
+  if (existing) {
+    existing.outerHTML = html;
+  } else {
+    msgElement.querySelector('.msg-content').insertAdjacentHTML('afterend', html);
+  }
+}
+
+window.toggleReaction = async (msgKey, emoji) => {
+  if (!isLoggedIn) {
+    alert("Debes estar logueado para reaccionar");
+    return;
+  }
+
+  const reactionRef = ref(db, `chat/messages/${msgKey}/reactions/${emoji}/users/${auth.currentUser.uid}`);
+  const snap = await get(reactionRef);
+
+  if (snap.exists()) {
+    await remove(reactionRef);
+    await runTransaction(ref(db, `chat/messages/${msgKey}/reactions/${emoji}/count`), c => (c || 1) - 1);
+    const countSnap = await get(ref(db, `chat/messages/${msgKey}/reactions/${emoji}/count`));
+    if ((countSnap.val() || 0) <= 0) {
+      await remove(ref(db, `chat/messages/${msgKey}/reactions/${emoji}`));
+    }
+  } else {
+    await set(reactionRef, true);
+    await runTransaction(ref(db, `chat/messages/${msgKey}/reactions/${emoji}/count`), c => (c || 0) + 1);
+  }
+};
+
+function showEmojiPicker(msgElement, msgKey) {
+  let picker = msgElement.querySelector('.emoji-picker');
+  if (picker) {
+    picker.remove();
+    return;
+  }
+
+  document.querySelectorAll('.emoji-picker').forEach(p => p.remove());
+
+  picker = document.createElement('div');
+  picker.className = 'emoji-picker';
+
+  AVAILABLE_EMOJIS.forEach(emoji => {
+    const btn = document.createElement('button');
+    btn.textContent = emoji;
+    btn.onclick = (e) => {
+      e.stopPropagation();
+      toggleReaction(msgKey, emoji);
+      picker.remove();
+    };
+    picker.appendChild(btn);
+  });
+
+  msgElement.appendChild(picker);
+}
+
+window.replyToMessage = (msgKey, nick, text) => {
+  replyToKey = msgKey;
+  replyToNick = nick;
+  replyToText = text.length > 50 ? text.substring(0,47)+'...' : text;
+
+  let replyPreview = document.getElementById('replyPreview');
+  if (!replyPreview) {
+    replyPreview = document.createElement('div');
+    replyPreview.id = 'replyPreview';
+    replyPreview.className = 'msg-reply';
+    replyPreview.innerHTML = `Respondiendo a <strong>${replyToNick}</strong>: ${replyToText} <span style="float:right;cursor:pointer;color:var(--muted)" onclick="cancelReply()">✕</span>`;
+    document.querySelector('.chat-input').insertAdjacentElement('beforebegin', replyPreview);
+  } else {
+    replyPreview.innerHTML = `Respondiendo a <strong>${replyToNick}</strong>: ${replyToText} <span style="float:right;cursor:pointer;color:var(--muted)" onclick="cancelReply()">✕</span>`;
+  }
+
+  textInput.focus();
+};
+
+window.cancelReply = () => {
+  replyToKey = null;
+  replyToNick = null;
+  replyToText = null;
+  const preview = document.getElementById('replyPreview');
+  if (preview) preview.remove();
+};
+
+window.scrollToMessage = (key) => {
+  const el = box.querySelector(`.msg[data-key="${key}"]`);
+  if (el) {
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.style.background = 'rgba(255,45,45,0.2)';
+    setTimeout(() => el.style.background = el.dataset.bg || 'transparent', 1500);
+  }
+};
+
+/* MENSAJES */
 const messagesQuery = query(messagesRef, limitToLast(40));
 
 onChildAdded(messagesQuery, snap => addOrUpdateMessage(snap.key, snap.val()));
@@ -370,31 +661,70 @@ function addOrUpdateMessage(key, m) {
   const verified = m.uid ? ' ✅ ' : '';
   const photo = m.photoURL ? `<img src="${m.photoURL}" class="msg-img" onerror="this.style.display='none'">` : '<div class="msg-img" style="background:#333;"></div>';
 
-  const content = `${photo}<div class="msg-content"><strong style="color:${m.color||'#ffffff'}">${verified}${m.nick}</strong>: ${m.text}</div>`;
+  let replyHTML = '';
+  if (m.replyTo) {
+    const replyNick = m.replyNick || 'Alguien';
+    const replyText = m.replyText?.length > 40 ? m.replyText.substring(0,37)+'...' : m.replyText;
+    replyHTML = `<div class="msg-reply" onclick="scrollToMessage('${m.replyTo}')">↳ Respondiendo a <strong>${replyNick}</strong>: ${replyText || ''}</div>`;
+  }
+
+  const content = `
+    ${photo}
+    <div class="msg-content">
+      ${replyHTML}
+      <strong style="color:${m.color||'#ffffff'}">${verified}${m.nick}</strong>: ${m.text}
+    </div>
+  `;
 
   if (div) {
     div.innerHTML = content;
     div.style.background = m.bg || 'transparent';
+    div.dataset.bg = m.bg || 'transparent';
   } else {
     div = document.createElement('div');
     div.className = 'msg';
     div.dataset.key = key;
     div.style.background = m.bg || 'transparent';
-    div.style.cursor = isAdmin ? 'pointer' : 'default';
+    div.dataset.bg = m.bg || 'transparent';
     div.innerHTML = content;
 
+    // Click para abrir picker de emojis
+    div.addEventListener('click', (e) => {
+      if (e.target.closest('.reaction-btn') || e.target.closest('.emoji-picker')) return;
+      showEmojiPicker(div, key);
+    });
+
+    // Click derecho o doble toque para responder
+    div.addEventListener('contextmenu', (e) => {
+      e.preventDefault();
+      replyToMessage(key, m.nick, m.text);
+    });
+
+    // Doble toque en móvil
+    let tapCount = 0;
+    div.addEventListener('touchend', () => {
+      tapCount++;
+      if (tapCount === 2) {
+        replyToMessage(key, m.nick, m.text);
+        tapCount = 0;
+      }
+      setTimeout(() => tapCount = 0, 500);
+    });
+
     if (isAdmin) {
-      div.title = "Haz clic para editar este mensaje";
-      div.addEventListener('click', () => openEditModal(key, m.text));
+      div.title = "Admin: doble clic para editar | clic derecho/doble toque para responder";
+      div.addEventListener('dblclick', () => openEditModal(key, m.text));
     }
 
     box.appendChild(div);
   }
 
+  renderReactions(div, m.reactions);
+
   box.scrollTop = box.scrollHeight;
 }
 
-/* ENVÍO DE MENSAJES */
+/* ENVÍO */
 window.sendMsg = () => {
   const text = textInput.value.trim();
   if (!text) return;
@@ -409,7 +739,7 @@ window.sendMsg = () => {
     return;
   }
 
-  push(messagesRef, {
+  const messageData = {
     nick: currentNick,
     text: text,
     time: Date.now(),
@@ -417,7 +747,16 @@ window.sendMsg = () => {
     bg: currentBg,
     photoURL: currentPhotoURL,
     uid: isLoggedIn ? auth.currentUser.uid : null
-  });
+  };
+
+  if (replyToKey) {
+    messageData.replyTo = replyToKey;
+    messageData.replyNick = replyToNick;
+    messageData.replyText = replyToText;
+    cancelReply();
+  }
+
+  push(messagesRef, messageData);
   textInput.value = "";
 };
 
@@ -428,7 +767,7 @@ textInput.addEventListener('keydown', e => {
   }
 });
 
-/* MODALES AUTH */
+/* MODALES (sin cambios) */
 window.openModal=(type)=>{
   document.getElementById('loginModal').style.display='flex';
   document.getElementById('modalTitle').innerText=type==='login'?'Login':'Registrarse';
@@ -436,7 +775,6 @@ window.openModal=(type)=>{
 }
 window.closeModal=()=>{document.getElementById('loginModal').style.display='none';}
 
-/* MODALES EDITAR, FOTO, COLOR, BG */
 window.openEditModal = (key, text) => {
   if (!isAdmin) return;
   currentEditKey = key;
@@ -451,7 +789,7 @@ window.saveEditedMessage = () => {
   if (!currentEditKey) return;
   const newText = document.getElementById('editText').value.trim();
   if (newText === "") {
-    alert("El mensaje no puede quedar vacío. Usa 'Borrar mensaje' si quieres eliminarlo.");
+    alert("El mensaje no puede quedar vacío.");
     return;
   }
   update(ref(db, 'chat/messages/' + currentEditKey), { text: newText });
@@ -474,7 +812,7 @@ window.closePhotoModal = () => { document.getElementById('photoModal').style.dis
 window.savePhotoUrl = async () => {
   const url = document.getElementById('photoUrlInput').value.trim();
   if (url && !url.startsWith('http')) {
-    alert('Por favor ingresa una URL válida (https://...)');
+    alert('URL inválida');
     return;
   }
   currentPhotoURL = url;
@@ -535,9 +873,9 @@ window.logout=async ()=>{
   stopTracking();
   if(auth.currentUser) await set(ref(db,'users/'+auth.currentUser.uid+'/online'),false);
   signOut(auth);
-}
+};
 
-/* LISTA USUARIOS REGISTRADOS */
+/* USUARIOS REGISTRADOS */
 function updateRegisteredUsers(snapshot){
   const data=snapshot.val()||{};
   const usersArr=[];
