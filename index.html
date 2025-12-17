@@ -25,28 +25,78 @@
   .tab.active{background:var(--accent);color:#fff;border-color:transparent}
   main{max-width:1600px;margin:0 auto;padding:28px 20px 40px;display:grid;grid-template-columns:1fr 400px;gap:28px;}
   .player-card,.chat-card{background:var(--panel);border-radius:var(--radius);overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.5);}
-  .player-top,.chat-top{padding:14px 18px;border-bottom:1px solid var(--border);font-size:14px;}
+  .player-top{padding:14px 18px;border-bottom:1px solid var(--border);font-size:14px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
   .player-wrap{aspect-ratio:16/9;background:#000}iframe{width:100%;height:100%;border:0}
   .chat-card{display:flex;flex-direction:column}
   .chat-messages{flex:1;padding:12px;overflow-y:auto;font-size:13px;overflow-wrap:anywhere;max-height:500px;}
-  .msg{margin-bottom:8px;padding:4px;border-radius:8px;}
+  .msg{margin-bottom:8px;padding:6px 8px;border-radius:8px;display:flex;align-items:center;gap:8px;}
+  .msg-img{width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0;background:var(--panel-soft);}
+  .msg-content{flex:1;}
   .chat-input{display:flex;gap:8px;padding:10px;border-top:1px solid var(--border);align-items:center;}
   .chat-input input{background:var(--panel-soft);border:1px solid var(--border);border-radius:999px;padding:8px 12px;color:var(--text);font-size:13px;outline:none;flex:1;}
   #nick{width:90px;opacity:.7;cursor:not-allowed}
   .chat-input button{padding:8px 14px;border-radius:999px;border:none;background:var(--accent);color:#fff;cursor:pointer;}
   .auth-buttons{display:flex;flex-direction:column;gap:8px;padding:10px;border-top:1px solid var(--border);}
   .auth-buttons button{flex:1;background:transparent;border:1px solid var(--border);color:var(--muted);border-radius:999px;padding:6px;cursor:pointer;}
-  .auth-text{margin-top:8px;font-size:12px;color:var(--muted);line-height:1.3;}
   @media(max-width:1100px){main{grid-template-columns:1fr}}
   .modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:100;}
-  .modal-content{background:var(--panel);padding:20px;border-radius:var(--radius);width:300px;display:flex;flex-direction:column;gap:12px;}
-  .modal-content input{padding:8px;border-radius:8px;border:1px solid var(--border);background:var(--panel-soft);color:var(--text);outline:none;}
-  .modal-content button{padding:8px;border:none;border-radius:999px;background:var(--accent);color:#fff;cursor:pointer;}
-  #colorModal,#bgModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:101;}
-  #colorModalContent,#bgModalContent{background:var(--panel);padding:20px;border-radius:var(--radius);display:flex;flex-direction:column;gap:12px;}
+  .modal-content{background:var(--panel);padding:20px;border-radius:var(--radius);width:320px;display:flex;flex-direction:column;gap:12px;}
+  .modal-content input,.modal-content textarea{padding:10px;border-radius:8px;border:1px solid var(--border);background:var(--panel-soft);color:var(--text);outline:none;font-size:14px;resize:vertical;}
+  .modal-content textarea{min-height:100px;}
+  .modal-content button{padding:10px;border:none;border-radius:999px;cursor:pointer;}
+  .modal-content button:first-of-type{background:var(--accent);color:#fff;}
+  .modal-content button:nth-of-type(2){background:#ff4444;color:#fff;margin-top:8px;}
+  .modal-content button:last-of-type{background:transparent;border:1px solid var(--border);color:var(--muted);}
+  #photoModal,#colorModal,#bgModal,#editModal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);justify-content:center;align-items:center;z-index:101;}
+  #photoModalContent,#colorModalContent,#bgModalContent,#editModalContent{background:var(--panel);padding:20px;border-radius:var(--radius);display:flex;flex-direction:column;gap:12px;width:340px;}
   .color-input,.bg-input{width:100%;height:40px;border:none;border-radius:8px;cursor:pointer;}
-  .preview-box{padding:6px;border-radius:6px;text-align:center;font-weight:bold;margin-top:6px;}
+  .preview-box{padding:6px;border-radius:6px;text-align:center;font-weight:bold;margin-top:6px;background:var(--panel-soft);}
+  .photo-preview img{width:80px;height:80px;border-radius:50%;object-fit:cover;margin:10px auto;display:block;background:var(--panel-soft);}
   #registeredUsersContainer{margin-top:16px;padding:10px;background:var(--panel-soft);border-radius:var(--radius);overflow-x:auto;white-space:nowrap;}
+  .user-item{display:inline-flex;align-items:center;gap:6px;margin-right:12px;}
+  .user-item img{width:20px;height:20px;border-radius:50%;object-fit:cover;}
+  .admin-help{margin-top:6px;font-size:12px;color:var(--accent);}
+
+  /* Top Fans - Más espacio para nick + horas */
+  .top-fans-title strong {font-size:14px;white-space:nowrap;}
+  .top-fans-ticker {
+    flex:1;
+    overflow:hidden;
+    position:relative;
+    height:80px;
+    overflow-x:auto;
+    overflow-y:hidden;
+  }
+  .top-fans-track {
+    display:flex;
+    gap:18px;
+    align-items:center;
+    padding:0 10px;
+  }
+  .top-fans-user {
+    text-align:center;
+    flex-shrink:0;
+  }
+  .top-fans-user img {
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    object-fit:cover;
+    background:var(--panel-soft);
+    border:2px solid var(--border);
+  }
+  .top-fans-user .nick {
+    display:block;
+    font-size:10px;
+    margin-top:6px;
+    color:var(--text);
+    white-space:nowrap;
+  }
+  .top-fans-user .hours {
+    font-size:9px;
+    color:var(--muted);
+    margin-top:3px;
+  }
 </style>
 </head>
 <body>
@@ -55,7 +105,7 @@
   <div class="header-inner">
     <div class="logo">F1<span>Ya</span></div>
     <div class="tabs">
-      <button class="tab active" id="btn-daddy" onclick="cambiarStream('daddy')">DAZN F1</button>
+      <button class="tab active" id="btn-daddy" onclick C="cambiarStream('daddy')">DAZN F1</button>
       <button class="tab" id="btn-espn" onclick="cambiarStream('espn')">ESPN</button>
       <button class="tab" id="btn-fox" onclick="cambiarStream('fox')">FOX</button>
     </div>
@@ -64,12 +114,17 @@
 
 <main>
   <section class="player-card">
-    <div class="player-top"><strong>Fórmula 1 · Live</strong></div>
+    <div class="player-top">
+      <div><strong>Fórmula 1 · Live</strong></div>
+      <div class="top-fans-title"><strong>Top Fans ·</strong></div> <!-- Cambio realizado aquí -->
+      <div class="top-fans-ticker">
+        <div class="top-fans-track" id="topFansTrack"></div>
+      </div>
+    </div>
     <div class="player-wrap">
       <iframe id="player" src="about:blank" allowfullscreen></iframe>
     </div>
 
-    <!-- Lista de usuarios registrados debajo del reproductor -->
     <div id="registeredUsersContainer">
       <strong>Usuarios Registrados:</strong>
       <span id="registeredUsers"></span>
@@ -90,13 +145,17 @@
       <button id="btnRegister" onclick="openModal('register')">Registrarse</button>
       <button id="btnLogin" onclick="openModal('login')">Login</button>
       <button id="btnLogout" onclick="logout()" style="display:none">Logout</button>
+      <button id="btnPhoto" onclick="openPhotoModal()" style="display:none">Foto Perfil</button>
       <button id="btnColorNick" onclick="openColorModal()" style="display:none">Color Nick</button>
       <button id="btnBgMsg" onclick="openBgModal()" style="display:none">Fondo Mensaje</button>
+    </div>
+    <div id="adminHelp" class="admin-help" style="display:none">
+      Comando Admin: /limpiar — limpiar chat | Clic en mensaje para editar
     </div>
   </aside>
 </main>
 
-<!-- MODAL LOGIN/REGISTER -->
+<!-- MODALES -->
 <div class="modal" id="loginModal">
   <div class="modal-content">
     <h3 id="modalTitle">Login</h3>
@@ -107,7 +166,16 @@
   </div>
 </div>
 
-<!-- MODAL COLOR NICK -->
+<div id="photoModal">
+  <div id="photoModalContent">
+    <h3>Cambiar foto de perfil (URL)</h3>
+    <input type="url" id="photoUrlInput" placeholder="https://ejemplo.com/mi-foto.jpg">
+    <div class="photo-preview"><img id="photoPreview" src="" alt="Preview"></div>
+    <button onclick="savePhotoUrl()">Guardar</button>
+    <button onclick="closePhotoModal()">Cerrar</button>
+  </div>
+</div>
+
 <div id="colorModal">
   <div id="colorModalContent">
     <h3>Selecciona un color para tu nick</h3>
@@ -118,7 +186,6 @@
   </div>
 </div>
 
-<!-- MODAL FONDO MENSAJE -->
 <div id="bgModal">
   <div id="bgModalContent">
     <h3>Selecciona un fondo para tus mensajes</h3>
@@ -129,9 +196,19 @@
   </div>
 </div>
 
+<div id="editModal">
+  <div id="editModalContent">
+    <h3>Editar mensaje</h3>
+    <textarea id="editText" placeholder="Escribe el nuevo mensaje..."></textarea>
+    <button onclick="saveEditedMessage()">Guardar</button>
+    <button onclick="deleteCurrentMessage()">Borrar mensaje</button>
+    <button onclick="closeEditModal()">Cancelar</button>
+  </div>
+</div>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getDatabase, ref, push, onChildAdded, set, get, onValue, query, limitToLast } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+import { getDatabase, ref, push, onChildAdded, onChildChanged, onChildRemoved, set, get, onValue, query, limitToLast, update, remove, runTransaction } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
 /* STREAMS */
@@ -151,100 +228,302 @@ const app=initializeApp(firebaseConfig);
 const db=getDatabase(app);
 const auth=getAuth(app);
 
-/* CHAT */
+/* ELEMENTOS */
 const messagesRef=ref(db,'chat/messages');
 const usersRef=ref(db,'users');
 const box=document.getElementById('messages');
 const registeredUsersSpan=document.getElementById('registeredUsers');
 const nickInput=document.getElementById('nick');
 const textInput=document.getElementById('text');
+const adminHelp=document.getElementById('adminHelp');
+const topFansTrack = document.getElementById('topFansTrack');
+
 let guestNick='Guest'+Math.random().toString(36).substring(2,6).toUpperCase();
 let currentNick=guestNick;
 let currentColor='#ffffff';
 let currentBg='transparent';
+let currentPhotoURL = '';
 let isLoggedIn=false;
+let isAdmin = false;
+let currentEditKey = null;
 nickInput.value=guestNick;
+
+/* Top Fans - Con horas y espacio suficiente */
+function renderTopFans(usersData) {
+  const users = Object.values(usersData || {}).filter(u => u.totalTime > 0 && u.photoURL && u.nick);
+  users.sort((a, b) => (b.totalTime || 0) - (a.totalTime || 0));
+  const top10 = users.slice(0, 10);
+
+  if (top10.length === 0) {
+    topFansTrack.innerHTML = '<div style="color:var(--muted);padding:0 20px;font-size:12px;">No hay fans activos aún</div>';
+    return;
+  }
+
+  let html = '';
+  top10.forEach(u => {
+    const hours = (u.totalTime / 3600).toFixed(1);
+    html += `
+      <div class="top-fans-user">
+        <img src="${u.photoURL}" alt="${u.nick}" onerror="this.style.display='none'">
+        <span class="nick" style="color:${u.color || '#ffffff'}">${u.nick}</span>
+        <span class="hours">${hours} h</span>
+      </div>
+    `;
+  });
+  topFansTrack.innerHTML = html;
+}
+onValue(usersRef, snapshot => renderTopFans(snapshot.val()));
+
+/* Trackeo de tiempo */
+let timeTracker = null;
+let sessionStart = Date.now();
+
+function startTracking() {
+  if (!auth.currentUser) return;
+  sessionStart = Date.now();
+  timeTracker = setInterval(() => {
+    const elapsed = Math.floor((Date.now() - sessionStart) / 1000);
+    if (elapsed >= 30) {
+      runTransaction(ref(db, `users/${auth.currentUser.uid}/totalTime`), current => (current || 0) + elapsed);
+      sessionStart = Date.now();
+    }
+  }, 10000);
+}
+
+function stopTracking() {
+  if (timeTracker) clearInterval(timeTracker);
+  if (auth.currentUser && sessionStart) {
+    const elapsed = Math.floor((Date.now() - sessionStart) / 1000);
+    if (elapsed > 0) {
+      runTransaction(ref(db, `users/${auth.currentUser.uid}/totalTime`), current => (current || 0) + elapsed);
+    }
+  }
+}
+window.addEventListener('beforeunload', stopTracking);
 
 /* AUTH CHANGE */
 onAuthStateChanged(auth, async user=>{
+  stopTracking();
+
   const btnLogin=document.getElementById('btnLogin');
   const btnRegister=document.getElementById('btnRegister');
   const btnLogout=document.getElementById('btnLogout');
+  const btnPhoto=document.getElementById('btnPhoto');
   const btnColorNick=document.getElementById('btnColorNick');
   const btnBgMsg=document.getElementById('btnBgMsg');
+
   if(user){
     const snap=await get(ref(db,'users/'+user.uid));
-    currentNick=snap.val().nick||guestNick;
-    currentColor=snap.val().color||'#ffffff';
-    currentBg=snap.val().bg||'transparent';
+    const data = snap.val() || {};
+    currentNick=data.nick||guestNick;
+    currentColor=data.color||'#ffffff';
+    currentBg=data.bg||'transparent';
+    currentPhotoURL = data.photoURL || '';
     nickInput.value=currentNick;
     nickInput.style.color=currentColor;
     isLoggedIn=true;
+
+    isAdmin = (currentNick.toLowerCase() === 'administrador');
+
     btnLogin.style.display='none';
     btnRegister.style.display='none';
     btnLogout.style.display='inline-block';
+    btnPhoto.style.display='inline-block';
     btnColorNick.style.display='inline-block';
     btnBgMsg.style.display='inline-block';
+
+    adminHelp.style.display = isAdmin ? 'block' : 'none';
+
+    startTracking();
   }else{
     currentNick=guestNick;
     currentColor='#ffffff';
     currentBg='transparent';
+    currentPhotoURL = '';
     nickInput.value=currentNick;
     nickInput.style.color=currentColor;
     isLoggedIn=false;
+    isAdmin = false;
     btnLogin.style.display='inline-block';
     btnRegister.style.display='inline-block';
     btnLogout.style.display='none';
+    btnPhoto.style.display='none';
     btnColorNick.style.display='none';
     btnBgMsg.style.display='none';
+    adminHelp.style.display='none';
   }
 });
 
-/* Mostrar últimos 40 mensajes */
-const messagesQuery=query(messagesRef, limitToLast(40));
-onChildAdded(messagesQuery,snap=>{
-  const m=snap.val();
-  const div=document.createElement('div');
-  div.className='msg';
-  div.style.background=m.bg||'transparent';
-  const verified=m.uid?' ✅ ':'';
-  div.innerHTML=`<strong style="color:${m.color||'#ffffff'}">${verified}${m.nick}</strong>: ${m.text}`;
-  box.appendChild(div);
-  box.scrollTop=box.scrollHeight;
+/* LISTENERS DE MENSAJES */
+const messagesQuery = query(messagesRef, limitToLast(40));
+
+onChildAdded(messagesQuery, snap => addOrUpdateMessage(snap.key, snap.val()));
+onChildChanged(messagesQuery, snap => addOrUpdateMessage(snap.key, snap.val()));
+onChildRemoved(messagesQuery, snap => {
+  const key = snap.key;
+  const msgElement = box.querySelector(`.msg[data-key="${key}"]`);
+  if (msgElement) msgElement.remove();
 });
 
-/* SEND MSG */
-window.sendMsg=()=>{
-  if(!textInput.value.trim())return;
-  push(messagesRef,{nick:currentNick,text:textInput.value,time:Date.now(),color:currentColor,bg:currentBg,uid:isLoggedIn?auth.currentUser.uid:null});
-  textInput.value='';
-};
-textInput.addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});
+function addOrUpdateMessage(key, m) {
+  let div = box.querySelector(`.msg[data-key="${key}"]`);
+  const verified = m.uid ? ' ✅ ' : '';
+  const photo = m.photoURL ? `<img src="${m.photoURL}" class="msg-img" onerror="this.style.display='none'">` : '<div class="msg-img" style="background:#333;"></div>';
 
-/* MODALS */
+  const content = `${photo}<div class="msg-content"><strong style="color:${m.color||'#ffffff'}">${verified}${m.nick}</strong>: ${m.text}</div>`;
+
+  if (div) {
+    div.innerHTML = content;
+    div.style.background = m.bg || 'transparent';
+  } else {
+    div = document.createElement('div');
+    div.className = 'msg';
+    div.dataset.key = key;
+    div.style.background = m.bg || 'transparent';
+    div.style.cursor = isAdmin ? 'pointer' : 'default';
+    div.innerHTML = content;
+
+    if (isAdmin) {
+      div.title = "Haz clic para editar este mensaje";
+      div.addEventListener('click', () => openEditModal(key, m.text));
+    }
+
+    box.appendChild(div);
+  }
+
+  box.scrollTop = box.scrollHeight;
+}
+
+/* ENVÍO DE MENSAJES */
+window.sendMsg = () => {
+  const text = textInput.value.trim();
+  if (!text) return;
+
+  if (text === "/limpiar" && isAdmin) {
+    const confirmed = confirm("¿Estás seguro de que quieres limpiar todos los mensajes del chat?");
+    if (confirmed) {
+      set(messagesRef, {});
+      box.innerHTML = "";
+    }
+    textInput.value = "";
+    return;
+  }
+
+  push(messagesRef, {
+    nick: currentNick,
+    text: text,
+    time: Date.now(),
+    color: currentColor,
+    bg: currentBg,
+    photoURL: currentPhotoURL,
+    uid: isLoggedIn ? auth.currentUser.uid : null
+  });
+  textInput.value = "";
+};
+
+textInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    sendMsg();
+  }
+});
+
+/* MODALES AUTH */
 window.openModal=(type)=>{
   document.getElementById('loginModal').style.display='flex';
   document.getElementById('modalTitle').innerText=type==='login'?'Login':'Registrarse';
   document.getElementById('modalSubmit').onclick=type==='login'?login:register;
 }
 window.closeModal=()=>{document.getElementById('loginModal').style.display='none';}
+
+/* MODALES EDITAR, FOTO, COLOR, BG */
+window.openEditModal = (key, text) => {
+  if (!isAdmin) return;
+  currentEditKey = key;
+  document.getElementById('editText').value = text;
+  document.getElementById('editModal').style.display = 'flex';
+}
+window.closeEditModal = () => {
+  document.getElementById('editModal').style.display = 'none';
+  currentEditKey = null;
+}
+window.saveEditedMessage = () => {
+  if (!currentEditKey) return;
+  const newText = document.getElementById('editText').value.trim();
+  if (newText === "") {
+    alert("El mensaje no puede quedar vacío. Usa 'Borrar mensaje' si quieres eliminarlo.");
+    return;
+  }
+  update(ref(db, 'chat/messages/' + currentEditKey), { text: newText });
+  closeEditModal();
+}
+window.deleteCurrentMessage = () => {
+  if (!currentEditKey) return;
+  if (confirm("¿Seguro que quieres borrar este mensaje?")) {
+    remove(ref(db, 'chat/messages/' + currentEditKey));
+    closeEditModal();
+  }
+}
+
+window.openPhotoModal = () => {
+  document.getElementById('photoUrlInput').value = currentPhotoURL;
+  document.getElementById('photoPreview').src = currentPhotoURL || '';
+  document.getElementById('photoModal').style.display = 'flex';
+}
+window.closePhotoModal = () => { document.getElementById('photoModal').style.display = 'none'; }
+window.savePhotoUrl = async () => {
+  const url = document.getElementById('photoUrlInput').value.trim();
+  if (url && !url.startsWith('http')) {
+    alert('Por favor ingresa una URL válida (https://...)');
+    return;
+  }
+  currentPhotoURL = url;
+  if (auth.currentUser) {
+    await set(ref(db, 'users/'+auth.currentUser.uid+'/photoURL'), url || null);
+  }
+  closePhotoModal();
+}
+
 window.openColorModal=()=>{document.getElementById('colorModal').style.display='flex';updatePreview();}
 window.closeColorModal=()=>{document.getElementById('colorModal').style.display='none';}
 window.openBgModal=()=>{document.getElementById('bgModal').style.display='flex';updateBgPreview();}
 window.closeBgModal=()=>{document.getElementById('bgModal').style.display='none';}
 
-/* REGISTER/LOGIN/LOGOUT */
+window.updatePreview=()=>{
+  const val=document.getElementById('colorPicker').value;
+  document.getElementById('nickPreview').style.color=val;
+  document.getElementById('nickPreview').innerText=currentNick;
+}
+window.saveNickColor=async ()=>{
+  const color=document.getElementById('colorPicker').value;
+  currentColor=color;
+  nickInput.style.color=color;
+  if(auth.currentUser) set(ref(db,'users/'+auth.currentUser.uid+'/color'),color);
+  closeColorModal();
+}
+window.updateBgPreview=()=>{
+  const val=document.getElementById('bgPicker').value;
+  document.getElementById('bgPreview').style.backgroundColor=val;
+}
+window.saveBgColor=async ()=>{
+  const bg=document.getElementById('bgPicker').value+'33';
+  currentBg=bg;
+  if(auth.currentUser) set(ref(db,'users/'+auth.currentUser.uid+'/bg'),bg);
+  closeBgModal();
+}
+
+/* AUTH */
 async function register(){
-  const nick=document.getElementById('modalNick').value;
+  const nick=document.getElementById('modalNick').value.trim();
   const pass=document.getElementById('modalPass').value;
   if(!nick||!pass)return alert('Completa todos los campos');
   const email=`${nick}@chat.f1ya.com`;
   const {user}=await createUserWithEmailAndPassword(auth,email,pass);
-  await set(ref(db,'users/'+user.uid),{nick,color:'#ffffff',bg:'transparent',online:true});
+  await set(ref(db,'users/'+user.uid),{nick, color:'#ffffff', bg:'transparent', photoURL: '', online:true, totalTime: 0});
   closeModal();
 }
 async function login(){
-  const nick=document.getElementById('modalNick').value;
+  const nick=document.getElementById('modalNick').value.trim();
   const pass=document.getElementById('modalPass').value;
   if(!nick||!pass)return alert('Completa todos los campos');
   const email=`${nick}@chat.f1ya.com`;
@@ -253,49 +532,37 @@ async function login(){
   closeModal();
 }
 window.logout=async ()=>{
+  stopTracking();
   if(auth.currentUser) await set(ref(db,'users/'+auth.currentUser.uid+'/online'),false);
   signOut(auth);
 }
 
-/* COLOR NICK */
-window.updatePreview=()=>{
-  const val=document.getElementById('colorPicker').value;
-  document.getElementById('nickPreview').style.color=val;
-  document.getElementById('nickPreview').innerText=currentNick;
-}
-window.saveNickColor=()=>{
-  const color=document.getElementById('colorPicker').value;
-  currentColor=color;
-  nickInput.style.color=color;
-  if(auth.currentUser) set(ref(db,'users/'+auth.currentUser.uid+'/color'),color);
-  closeColorModal();
-}
-
-/* FONDO MENSAJE */
-window.updateBgPreview=()=>{
-  const val=document.getElementById('bgPicker').value;
-  document.getElementById('bgPreview').style.backgroundColor=val;
-  document.getElementById('bgPreview').innerText='Preview Mensaje';
-}
-window.saveBgColor=()=>{
-  const bg=document.getElementById('bgPicker').value+'33'; // transparente
-  currentBg=bg;
-  if(auth.currentUser) set(ref(db,'users/'+auth.currentUser.uid+'/bg'),bg);
-  closeBgModal();
-}
-
-/* LISTA DE USUARIOS REGISTRADOS DEBAJO DEL REPRODUCTOR */
+/* LISTA USUARIOS REGISTRADOS */
 function updateRegisteredUsers(snapshot){
   const data=snapshot.val()||{};
   const usersArr=[];
   Object.values(data).forEach(u=>{
     const verified=u.online?' ✅':'';
     const color=u.color||'#ffffff';
-    usersArr.push(`<span style="color:${color}">${u.nick}${verified}</span>`);
+    const photo = u.photoURL ? `<img src="${u.photoURL}" onerror="this.style.display='none'">` : '';
+    usersArr.push(`<span class="user-item">${photo}<span style="color:${color}">${u.nick}${verified}</span></span>`);
   });
-  registeredUsersSpan.innerHTML=usersArr.join(', ');
+  registeredUsersSpan.innerHTML=usersArr.join(' ');
 }
 onValue(usersRef,updateRegisteredUsers);
+
+/* Preview foto */
+document.getElementById('photoUrlInput')?.addEventListener('input', function() {
+  const url = this.value.trim();
+  const preview = document.getElementById('photoPreview');
+  if (url) {
+    preview.src = url;
+    preview.style.display = 'block';
+  } else {
+    preview.src = '';
+    preview.style.display = 'none';
+  }
+});
 </script>
 
 </body>
